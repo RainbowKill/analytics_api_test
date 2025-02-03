@@ -5,6 +5,7 @@ import { AnalyticsClickHousesService } from './analytics-clickhouse.service';
 
 const config = AnalyticsClickhouseConfig();
 
+
 @Global()
 @Module({
   providers: [

@@ -11,14 +11,19 @@ import { CronModule } from '@/cron/crons.module';
 import { CommandsModule } from '@/commands/commands.module';
 import { LoggerModule } from '@/utils/logger/logger.module';
 import { CustomLoggerService } from '@/utils/logger/logger.service';
-// @TODO on module init check clickhouse connection
+import { MysqlModule } from "@/utils/mysql/mysql.module";
+import { MySqlService } from "@/utils/mysql/mysql.service";
+import { AggregatedAnalyticsModule } from "@/agregatedAnalytics/analytics.module";
+
 @Module({
   imports: [
     AnalyticsClickHouseModule,
     AnalyticsModule,
     PrometheusPrometheusModule,
+    AggregatedAnalyticsModule,
     ScheduleModule.forRoot(),
-    CronModule,
+    MysqlModule,
+    // CronModule,
     CommandModule,
     CommandsModule,
     LoggerModule,
@@ -33,6 +38,8 @@ import { CustomLoggerService } from '@/utils/logger/logger.service';
       provide: 'LoggerService',
       useClass: CustomLoggerService,
     },
+    MySqlService,
   ],
+  exports: [MySqlService],
 })
 export class AppModule {}
